@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Diaa My Batta 🦆🐰</title>
+  <style>
+    body {
+      background: #e9f7ef; /* light green */
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .card {
+      background: white;
+      border-radius: 25px;
+      padding: 35px;
+      max-width: 450px;
+      margin: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+      position: relative;
+    }
+    h1 {
+      color: #6abf69;
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #333;
+      display: none; /* hidden initially for Next button */
+    }
+    .visible {
+      display: block;
+    }
+    .next-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #f4a261;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+    }
+    .twinkle {
+      display: inline-block;
+      margin-right: 5px;
+      color: #e76f51;
+    }
+    .heart {
+      font-size: 24px;
+      color: #e76f51;
+      position: absolute;
+      animation: floatHeart 3s infinite;
+      pointer-events: none;
+    }
+    @keyframes floatHeart {
+      0% { transform: translateY(0px) scale(1); opacity: 1; }
+      50% { transform: translateY(-40px) scale(1.2); opacity: 0.8; }
+      100% { transform: translateY(-80px) scale(1); opacity: 0; }
+    }
+    .hug-container {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      margin-top: 20px;
+      display: none; /* hidden until last click */
+    }
+    .hug-img {
+      width: 250px;
+      position: absolute;
+      bottom: -350px; /* start hidden below */
+      left: 50%;
+      transform: translateX(-50%);
+      transition: bottom 1s ease-out;
+    }
+    .hug-img.show {
+      bottom: 20px; /* slide into view */
+    }
+    .final-msg {
+      font-size: 22px;
+      color: #e76f51;
+      display: none;
+      margin-top: 15px;
+      animation: fadeIn 1s forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>My Diaa, My Batta</h1>
+
+  <p class="msg visible">
+    <span class="twinkle">✨</span> You’re my peace, and the soul I live by.<span class="twinkle">✨</span>
+  </p>
+  <p class="msg">
+    <span class="twinkle">✨</span> Your existence lights up my world.<span class="twinkle">✨</span>
+  </p>
+  <p class="msg">
+    <span class="twinkle">✨</span> I could never survive without you.<span class="twinkle">✨</span>
+  </p>
+  <p class="msg">
+    <span class="twinkle">✨</span> Thank you for everything, my kind-hearted baby.<span class="twinkle">✨</span>
+  </p>
+  <p class="msg">
+    <span class="twinkle">✨</span> I love you 🥺🤍<span class="twinkle">✨</span>
+  </p>
+
+  <!-- Hugging duck + bunny, hidden initially -->
+  <div class="hug-container">
+    <img src="A_digital_illustration_in_a_kawaii_art_style_featu.png" alt="Duck and Bunny Hugging" class="hug-img">
+  </div>
+
+  <!-- Final message -->
+  <p class="final-msg">
+    💖 I WILL LOVE YOU TILL THE END OF TIME 💖
+  </p>
+
+  <button class="next-btn">Next</button>
+
+  <!-- Audio, hidden initially -->
+  <audio id="bgMusic" loop>
+    <source src="at-my-worst.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+</div>
+
+<script>
+  const messages = document.querySelectorAll('.msg');
+  const hugContainer = document.querySelector('.hug-container');
+  const hugImg = document.querySelector('.hug-img');
+  const finalMsg = document.querySelector('.final-msg');
+  const nextBtn = document.querySelector('.next-btn');
+  const audio = document.getElementById('bgMusic');
+  let index = 0;
+
+  nextBtn.addEventListener('click', () => {
+    if (index < messages.length - 1) {
+      messages[index].classList.remove('visible');
+      index++;
+      messages[index].classList.add('visible');
+    } else if (index === messages.length - 1) {
+      // Last click: show hug, final message, and play music
+      messages[index].classList.remove('visible');
+      hugContainer.style.display = 'block';
+      hugImg.classList.add('show');
+      finalMsg.style.display = 'block';
+      audio.play().catch(() => {}); // autoplay sometimes needs user interaction
+      nextBtn.style.display = 'none';
+    }
+  });
+
+  // Floating hearts
+  setInterval(() => {
+    if (hugContainer.style.display === 'block') { // only when hug appears
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.textContent = '💖';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 3000);
+    }
+  }, 800);
+</script>
+
+</body>
+</html>
